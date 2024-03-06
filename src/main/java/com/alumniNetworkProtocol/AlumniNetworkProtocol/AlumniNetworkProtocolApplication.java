@@ -9,6 +9,7 @@ public class AlumniNetworkProtocolApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AlumniNetworkProtocolApplication.class, args);
+//        System.out.println(" ");
     }
 
 }
