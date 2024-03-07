@@ -1,12 +1,12 @@
 package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.impl;
 
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTO.JwtAuthenticationResponse;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTO.SignInRequest;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTO.SignUpRequest;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.JwtAuthenticationResponse;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.SignInRequest;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.SignUpRequest;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.User;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Repositories.UserRepo;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.api.AuthenticationService;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.api.JwtService;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis.AuthenticationService;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             User user = new User();
             user.setName(signUpRequest.getName());
             user.setEmail(signUpRequest.getEmail());
-            user.setPassword(signUpRequest.getPassword());
+            user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
             user.setPhone(signUpRequest.getPhone());
             user.setCohort(signUpRequest.getCohort());
             user.setRole(signUpRequest.getRole());
@@ -55,7 +54,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtAuthenticationResponse signin(SignInRequest signInRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmail(), signInRequest.getPassword()));
         var user = userRepository.findByEmail(signInRequest.getEmail()).orElseThrow(()->new IllegalArgumentException("invalid email or password"));
-
-        return null;
+        var jwt = jwtService.generateToken(user);
+        JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
+        jwtAuthenticationResponse.setToken(jwt);
+        jwtAuthenticationResponse.setEmail(signInRequest.getEmail());
+        System.out.println("User logged in");
+        return jwtAuthenticationResponse;
     }
 }

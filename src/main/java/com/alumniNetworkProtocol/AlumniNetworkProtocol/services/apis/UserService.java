@@ -1,4 +1,4 @@
-package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.api;
+package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

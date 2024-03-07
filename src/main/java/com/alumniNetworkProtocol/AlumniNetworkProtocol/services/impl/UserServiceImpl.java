@@ -2,9 +2,9 @@ package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.impl;
 
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.User;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Repositories.UserRepo;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.api.UserService;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
+    @Autowired
     private  UserRepo userRepository;
 
     @Override
@@ -25,3 +26,4 @@ public class UserServiceImpl implements UserService{
         };
     }
 }
+

@@ -1,4 +1,4 @@
-package com.alumniNetworkProtocol.AlumniNetworkProtocol.DTO;
+package com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs;
 
 import lombok.Data;
 

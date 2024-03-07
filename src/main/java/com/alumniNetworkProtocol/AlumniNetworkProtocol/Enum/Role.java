@@ -1,2 +1,6 @@
-package com.alumniNetworkProtocol.AlumniNetworkProtocol.Enum;public enum Role {
+package com.alumniNetworkProtocol.AlumniNetworkProtocol.Enum;
+
+public enum Role {
+    ADMIN,
+    USER
 }

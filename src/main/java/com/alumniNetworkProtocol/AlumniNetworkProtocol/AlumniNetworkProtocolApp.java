@@ -1,15 +1,13 @@
 package com.alumniNetworkProtocol.AlumniNetworkProtocol;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AlumniNetworkProtocolApplication {
+public class AlumniNetworkProtocolApp {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AlumniNetworkProtocolApplication.class, args);
-//        System.out.println(" ");
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(AlumniNetworkProtocolApp.class, args);
+	}
 
 }

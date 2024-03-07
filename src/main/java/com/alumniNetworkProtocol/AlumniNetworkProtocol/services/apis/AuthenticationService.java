@@ -1,6 +1,6 @@
-package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.api;
+package com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis;
 
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTO.*;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.*;
 public interface AuthenticationService {
 
     String signUp(SignUpRequest signUpRequest);
