@@ -5,11 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.Alumni;
@@ -28,8 +24,16 @@ public class AlumniServiceImpl implements AlumniService {
 		public Alumni getAlumni(@PathVariable Long id) {
 		    return alumniRepository.findById(id).orElse(null);
 		}
-		
-		public Alumni createAlumni(@RequestBody Alumni alumni) {
+
+	@Override
+	public Optional<Alumni> getAlumniByYear(int year) {
+		List<Alumni> alumniList =  alumniRepository.findAll();
+		Alumni al = alumniList.stream().filter((a)-> a.getGraduationYear()==year).findAny().orElse(null);
+		Optional<Alumni> opt = Optional.ofNullable(al);
+		return opt;
+	}
+
+	public Alumni createAlumni(@RequestBody Alumni alumni) {
 		    return alumniRepository.save(alumni);
 		}
 		

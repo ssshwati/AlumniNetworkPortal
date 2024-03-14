@@ -1,8 +1,6 @@
 package com.alumniNetworkProtocol.AlumniNetworkProtocol.controllers;
 
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.Alumni;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.User;
-import com.alumniNetworkProtocol.AlumniNetworkProtocol.Repositories.AlumniRepository;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis.AlumniService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +30,13 @@ public class AlumniController {
 	public Alumni getAlumni(@PathVariable Long id) {
 	    return alumniService.getAlumni(id);
 	}
-	
-	
+
+	@GetMapping("getAlumniByYear/{year}")//GET
+	public Optional<Alumni> getAlumni(@PathVariable int year) {
+		return alumniService.getAlumniByYear(year);
+	}
+
+
 	@PutMapping("updateAlumni/{id}")//PUT
 	public Alumni updateAlumni(@PathVariable Long id, @RequestBody Alumni updatedAlumni) {
 	    return alumniService.updateAlumni(id, updatedAlumni);
