@@ -4,7 +4,9 @@ package com.alumniNetworkProtocol.AlumniNetworkProtocol.controllers;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.JwtAuthenticationResponse;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.SignInRequest;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.DTOs.SignUpRequest;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.Candidate;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Entities.User;
+import com.alumniNetworkProtocol.AlumniNetworkProtocol.Repositories.CandidateRepository;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.Repositories.UserRepo;
 import com.alumniNetworkProtocol.AlumniNetworkProtocol.services.apis.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -26,15 +28,25 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private CandidateRepository candidateRepository;
 
     @PostMapping("/signup")
     public String signUp(@RequestBody SignUpRequest signUpRequest){
-        Optional<User> existingUser = userRepo.findByEmail(signUpRequest.getEmail());
-        if(existingUser.isPresent()){
-            return "user with this email is already registered";
+    	Optional<Candidate> existingCandidate = candidateRepository.findByEmail(signUpRequest.getEmail());
+        if(existingCandidate.isPresent()){
+        	  Optional<User> existingUser = userRepo.findByEmail(signUpRequest.getEmail());
+              if(existingUser.isPresent()){
+                  return "user with this email is already registered";
+              }else{
+                  return authenticationService.signUp(signUpRequest);
+              }
         }else{
-            return authenticationService.signUp(signUpRequest);
+            return "not a memeber of wiley edge";
         }
+    	
+    	
+      
     }
 
 //    @PostMapping("/signin")
